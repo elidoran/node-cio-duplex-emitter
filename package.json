@@ -1,0 +1,41 @@
+{
+  "name": "@cio/duplex-emitter",
+  "version": "0.1.0",
+  "description": "Configure connection with duplex-emitter",
+  "main": "lib",
+  "keywords": [
+    "cio",
+    "plugin",
+    "event",
+    "events",
+    "duplex",
+    "emitter",
+    "stream",
+    "remote"
+  ],
+  "author": "Eli Doran <eli+npm@elidoran.com>",
+  "license": "MIT",
+  "scripts": {
+    "compile": "coffee --bare --compile lib",
+    "clean": "rm -rf lib/*.js",
+    "prepublish": "npm run compile",
+    "postpublish": "npm run clean",
+    "test": "mocha --compilers coffee:coffee-script/register --reporter spec --bail --check-leaks test/lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/elidoran/node-cio-duplex-emitter.git"
+  },
+  "bugs": "http://github.com/elidoran/node-cio-duplex-emitter/issues",
+  "devDependencies": {
+    "coffee-script": "^1.11.1",
+    "mocha": "^2.5.3",
+    "cio": "^0.2.0"
+  },
+  "dependencies": {
+    "duplex-emitter": "^2.1.2"
+  },
+  "engines": {
+    "node": ">=0.12"
+  }
+}
