@@ -73,7 +73,8 @@ client.on('emitter', function(emitter, client) {
 // if you specify key/cert, and optionally `ca`, values
 // then it'll use `tls.connect()` instead for secure communication.
 
-// Do the same with cio.server(...) for server side connection setup
+// Do the same with cio.server(...) for server side connection setup,
+// including secure communication
 
 ```
 
