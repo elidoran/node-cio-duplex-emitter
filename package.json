@@ -6,6 +6,8 @@
   "keywords": [
     "cio",
     "plugin",
+    "addon",
+    "listener",
     "event",
     "events",
     "duplex",
