@@ -17,53 +17,33 @@ npm install @cio/duplex-emitter --save
 
 Uses `duplex-emitter` to setup a two-way remote event communication.
 
+Enable it with the `duplexEmitter:true` options property and it will produce a `socket.duplexEmitter` sub-property and emit a 'duplex-emitter' event.
+
 ```javascript
-// get the module's builder function
-var buildCio = require('cio');
+// get the `cio` module's builder function and build one
+var buildCio = require('cio')
+  , cio = buildCio();
 
-// pass this module's name to the core module: `cio` as a plugin
-var cio = buildCio({
-  // can specify many plugins in this array
-  plugins: [ '@cio/duplex-emitter' ]
-});
+// provide the module name to load it for the specific type of socket
+cio.onClient('@cio/duplex-emitter');
+cio.onServerClient('@cio/duplex-emitter');
 
-//  OR: provide options for a plugin too:
-var cio = buildCio({
-  plugins: [
-    { plugin: '@cio/duplex-emitter', options: {some: 'options'} }
-  ]
-});
-
-// could alternatively do any of the following:
-
-// pass the plugin info to the `cio.use()` function
-cio.use('@cio/duplex-emitter');
-
-//  OR: and with some plugin options
-cio.use('@cio/duplex-emitter', { some: 'options' });
-
-//  OR: provide the function to use()
+// OR: provide the function
 var fn = require('@cio/duplex-emitter');
-cio.use(fn);
-
-//  OR: provide the function with options
-cio.use(fn, { some: 'options' });
+cio.onClient(fn);
+cio.onServerClient(fn);
 
 
-// now make a client
+// tell this listener to do its thing for this client
+var options = { duplexEmitter:true }
+  , client = cio.client(options)
+  , server = cio.server(options);
 
-// some options...
-var options = {};
-
-// create it with the options
-client = cio.client(options);
-
-// the result is a client socket created by `net.connect()`
-// when it connects it will do:
-// client.emitter = new DuplexEmitter(socket)
-// client.emit('emitter', emitter, client)
-// so, you can:
-client.on('emitter', function(emitter, client) {
+// the result is sockets connect (client and server client) it will do:
+//   socket.duplexEmitter = DuplexEmitter(socket);
+//   socket.emit('duplex-emitter', socket.duplexEmitter, socket);
+// so, you can do this for both `client` and `server`
+client.on('duplex-emitter', function(emitter, socket) {
   emitter.on('some-event', someListener);
   // and more...
 });
@@ -72,10 +52,6 @@ client.on('emitter', function(emitter, client) {
 
 // if you specify key/cert, and optionally `ca`, values
 // then it'll use `tls.connect()` instead for secure communication.
-
-// Do the same with cio.server(...) for server side connection setup,
-// including secure communication
-
 ```
 
 ## MIT License
