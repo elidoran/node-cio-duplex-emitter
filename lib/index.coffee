@@ -8,7 +8,7 @@ module.exports = ->
   unless @duplexEmitter is true then return
 
   # we want the socket. doesn't matter whether its for a client or server client
-  socket = @client ? @connection
+  socket = @client ? @serverClient
 
   # create emitter and store it on the socket
   socket.duplexEmitter = emitter = buildEmitter socket
