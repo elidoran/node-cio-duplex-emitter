@@ -1,6 +1,6 @@
 {
   "name": "@cio/duplex-emitter",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Configure connection with duplex-emitter",
   "main": "lib",
   "keywords": [
